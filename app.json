@@ -23,6 +23,7 @@
     ],
     "ios": {
       "supportsTablet": true
-    }
+    },
+    "sdkVersion": "36.0.0"
   }
 }
