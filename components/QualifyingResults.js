@@ -29,7 +29,7 @@ function Item({ result }) {
         <TouchableOpacity
             style={styles.item}
             onPress={() => {
-                navigation.navigate('Result details', {
+                navigation.navigate('Qualifying details', {
                     result: result,
                 });
             }}>
@@ -38,34 +38,29 @@ function Item({ result }) {
     );
 }
 
-const RaceResult = ({ route }) => {
+const QualifyingResults = ({ route }) => {
     const { season, round } = route.params
     const [data, setData] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
     const [hasError, setErrors] = useState(false);
 
     async function fetchData() {
-        const res = await fetch(`http://ergast.com/api/f1/${season}/${round}/results.json`)
+        const res = await fetch(`http://ergast.com/api/f1/${season}/${round}/qualifying.json`)
         res
             .json()
             .then(res => {
                 let obj = JSON.parse(JSON.stringify(res))
-                // console.log(obj)
-                // console.log(typeof(obj))
                 console.log("TERA wyniki ")
-                
-                console.log(obj["MRData"]["RaceTable"]["Races"][0]["Results"][0])
-                console.log("TERA wyniki ")
-                console.log(obj.MRData.RaceTable.Races.Results)
+                console.log(obj.MRData.RaceTable.Races.QualifyingResults)
                 setData(obj["MRData"]["RaceTable"]["Races"][0])
                 setIsLoading(false)
-                
+
             }
             )
             .catch(err => {
                 setErrors(true)
                 setIsLoading(false)
-                console.log("Error",err)
+                console.log("Error", err)
             });
     }
 
@@ -101,7 +96,7 @@ const RaceResult = ({ route }) => {
                     <Text>Circuit name: {data["Circuit"]["circuitName"]} </Text>
                     <Text>Scoreboard:  </Text>
                     <FlatList
-                        data={data["Results"]}
+                        data={data["QualifyingResults"]}
                         renderItem={({ item }) =>
                             <Item result={item} />}
                         keyExtractor={item => item.id}
@@ -119,4 +114,4 @@ const RaceResult = ({ route }) => {
     )
 }
 
-export default RaceResult;
+export default QualifyingResults;

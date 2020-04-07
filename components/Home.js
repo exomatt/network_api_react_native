@@ -32,6 +32,26 @@ export const Home = ({ navigation }) => {
                 }>
                 Race result
             </Button>
+            <Button
+                mode="contained"
+                onPress={() =>
+                    navigation.navigate('Qualifying result', {
+                        season: season,
+                        round: round
+                    })
+                }>
+                Qualifying Results
+            </Button>
+            <Button
+                mode="contained"
+                onPress={() =>
+                    navigation.navigate('Driver standing', {
+                        season: season,
+                        round: round
+                    })
+                }>
+                Qualifying Results
+            </Button>
         </View>
     )
 };
