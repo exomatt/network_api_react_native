@@ -50,7 +50,7 @@ export const Home = ({ navigation }) => {
                         round: round
                     })
                 }>
-                Qualifying Results
+                Driver standing
             </Button>
         </View>
     )

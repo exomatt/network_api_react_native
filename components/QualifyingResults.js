@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-import { Text } from 'react-native-paper';
+import { Text, Searchbar } from 'react-native-paper';
 import { ScrollView, View, StyleSheet, FlatList, ActivityIndicator, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import Constants from 'expo-constants';
@@ -41,6 +41,8 @@ function Item({ result }) {
 const QualifyingResults = ({ route }) => {
     const { season, round } = route.params
     const [data, setData] = useState([]);
+    const [array, setArray] = useState([]);
+    const [originalArray, setOriginalArray] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
     const [hasError, setErrors] = useState(false);
 
@@ -53,6 +55,8 @@ const QualifyingResults = ({ route }) => {
                 console.log("TERA wyniki ")
                 console.log(obj.MRData.RaceTable.Races.QualifyingResults)
                 setData(obj["MRData"]["RaceTable"]["Races"][0])
+                setArray(obj["MRData"]["RaceTable"]["Races"][0]["QualifyingResults"])
+                setOriginalArray(obj["MRData"]["RaceTable"]["Races"][0]["QualifyingResults"])
                 setIsLoading(false)
 
             }
@@ -63,6 +67,19 @@ const QualifyingResults = ({ route }) => {
                 console.log("Error", err)
             });
     }
+
+    searchFilterFunction = (text) => {
+        console.log("Searching", text)
+        const newData = originalArray.filter(item => {
+            const itemData = `${item.position.toUpperCase()} ${item.Driver.givenName.toUpperCase()} ${item.Driver.familyName.toUpperCase()}`;
+            console.log(itemData)
+            const textData = text.toUpperCase();
+
+            return itemData.includes(textData);
+        });
+        console.log(newData)
+        setArray(newData);
+    };
 
 
     useEffect(() => {
@@ -89,6 +106,13 @@ const QualifyingResults = ({ route }) => {
                 <ScrollView
                     contentInsetAdjustmentBehavior="automatic"
                     style={styles.container}>
+                    <Searchbar
+                        placeholder="Filter Drivers..."
+                        lightTheme
+                        round
+                        onChangeText={text => searchFilterFunction(text)}
+                        autoCorrect={false}
+                    />    
                     <Text>Season: {season} </Text>
                     <Text>Round: {round} </Text>
                     <Text>Race name: {data["raceName"]} </Text>
@@ -96,7 +120,7 @@ const QualifyingResults = ({ route }) => {
                     <Text>Circuit name: {data["Circuit"]["circuitName"]} </Text>
                     <Text>Scoreboard:  </Text>
                     <FlatList
-                        data={data["QualifyingResults"]}
+                        data={array}
                         renderItem={({ item }) =>
                             <Item result={item} />}
                         keyExtractor={item => item.id}
