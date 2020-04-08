@@ -8,18 +8,38 @@ import Constants from 'expo-constants';
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        marginTop: Constants.statusBarHeight,
+        backgroundColor: '#e3dcdc'
     },
     item: {
-        backgroundColor: '#99ebff',
-        padding: 20,
+        backgroundColor: '#9933ff',
         marginVertical: 8,
         marginHorizontal: 16,
+        padding: 15,
+        margin: 5,
+        marginLeft: 10,
+        marginRight: 10,
     },
     title: {
         textAlign: "center",
         fontSize: 26,
+        color: '#FFFFFF'
     },
+    search: {
+        padding: 10,
+        margin: 5,
+        marginLeft: 10,
+        marginRight: 10,
+        height: 50
+    },
+    text: {
+        width: '90%',
+        marginLeft: 'auto',
+        marginRight: 'auto',
+        paddingBottom: 0,
+        marginTop: 0,
+        fontSize: 20,
+        textAlign: 'center'
+    }
 });
 
 function Item({ result }) {
@@ -94,7 +114,7 @@ const RaceResult = ({ route }) => {
         else if (hasError) {
             return (
                 <View style={{ flex: 1, padding: 20 }}>
-                    <Text>Problem with loading data!</Text>
+                    <Text style={styles.text}>Problem with loading data!</Text>
                 </View>
             );
         }
@@ -109,13 +129,14 @@ const RaceResult = ({ route }) => {
                         round
                         onChangeText={text => searchFilterFunction(text)}
                         autoCorrect={false}
+                        style={styles.search}
                     />    
-                    <Text>Season: {season} </Text>
-                    <Text>Round: {round} </Text>
-                    <Text>Race name: {data["raceName"]} </Text>
-                    <Text>Date: {data["date"]} </Text>
-                    <Text>Circuit name: {data["Circuit"]["circuitName"]} </Text>
-                    <Text>Scoreboard:  </Text>
+                    <Text style={styles.text}>Season: {season} </Text>
+                    <Text style={styles.text}>Round: {round} </Text>
+                    <Text style={styles.text}>Race name: {data["raceName"]} </Text>
+                    <Text style={styles.text}>Date: {data["date"]} </Text>
+                    <Text style={styles.text}>Circuit name: {data["Circuit"]["circuitName"]} </Text>
+                    <Text style={styles.text}>Scoreboard:  </Text>
                     <FlatList
                         data={array}
                         renderItem={({ item }) =>

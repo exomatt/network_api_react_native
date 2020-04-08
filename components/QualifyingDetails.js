@@ -1,22 +1,36 @@
 import React from 'react';
 
-import { StyleSheet, TouchableOpacity, Alert } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { Text } from 'react-native-paper';
 
 const QualifyingDetails = ({ route }) => {
     const { result } = route.params;
     return (
-        <>
-            <Text>{result.Driver.givenName} {result.Driver.familyName}</Text>
-            <Text>Position: {result.position}</Text>
-            <Text>Nationality: {result.Driver.nationality}</Text>
-            <Text>Team: {result.Constructor.constructorId.replace("_"," ")}</Text>
-            <Text>Driver number: {result.number}</Text>
-            <Text>Q1:: {result.Q1}</Text>
-            <Text>Q2: {result.Q2}</Text>
-            <Text>Q3: {result.Q3}</Text>
-        </>
+        <View style={styles.container}>
+            <Text style={styles.text}>{result.Driver.givenName} {result.Driver.familyName}</Text>
+            <Text style={styles.text}>Position: {result.position}</Text>
+            <Text style={styles.text}>Nationality: {result.Driver.nationality}</Text>
+            <Text style={styles.text}>Team: {result.Constructor.constructorId.replace("_"," ")}</Text>
+            <Text style={styles.text}>Driver number: {result.number}</Text>
+            <Text style={styles.text}>Q1:: {result.Q1}</Text>
+            <Text style={styles.text}>Q2: {result.Q2}</Text>
+            <Text style={styles.text}>Q3: {result.Q3}</Text>
+        </View>
     )
 }
-
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        backgroundColor: '#e3dcdc'
+    },
+    text: {
+        width: '90%',
+        marginLeft: 'auto',
+        marginRight: 'auto',
+        paddingBottom: 0,
+        marginTop: 0,
+        fontSize: 20,
+        textAlign: 'center'  
+    }
+});
 export default QualifyingDetails;

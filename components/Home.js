@@ -15,15 +15,18 @@ export const Home = ({ navigation }) => {
                 value={season}
                 onChangeText={onChangeSeason}
                 keyboardType='numeric'
+                style={styles.input}
             />
             <TextInput
                 label='Round'
                 value={round}
                 onChangeText={onChangeRound}
                 keyboardType='numeric'
+                style={styles.input}
             />
             <Button
                 mode="contained"
+                style={styles.btn}
                 onPress={() =>
                     navigation.navigate('Race result', {
                         season: season,
@@ -34,6 +37,7 @@ export const Home = ({ navigation }) => {
             </Button>
             <Button
                 mode="contained"
+                style={styles.btn}
                 onPress={() =>
                     navigation.navigate('Qualifying result', {
                         season: season,
@@ -44,6 +48,7 @@ export const Home = ({ navigation }) => {
             </Button>
             <Button
                 mode="contained"
+                style={styles.btn}
                 onPress={() =>
                     navigation.navigate('Driver standing', {
                         season: season,
@@ -56,9 +61,19 @@ export const Home = ({ navigation }) => {
     )
 };
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
+    input: {
+        height: 50,
+        padding: 15,
+        margin: 5,
+        marginLeft: 10,
+        marginRight: 10,
     },
+    btn: {
+        padding: 15,
+        margin: 5,
+        marginLeft: 10,
+        marginRight: 10,
+    }
 });
 
 export default Home;
